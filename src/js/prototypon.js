@@ -2,42 +2,45 @@ window.Proto = {};
 
 (function (window, Proto, undefined) {
   
+    var viewWidth = $(document).width()
+    var viewHeight = $(document).height()
 
     var width;
     var height;
     var svg;
 
-    d3.xml(svg_path, "image/svg+xml", function(xml) {
-        d3.select('body').node().appendChild(xml.documentElement);
-        
-        svg = d3.select('svg');
+    function placeSVG(svg_path, callback){
 
-        width = svg.attr('width')
-        height = svg.attr('height')
-        var view = svg.attr('viewBox').split(' ')
+        d3.xml(svg_path, "image/svg+xml", function(xml) {
+            d3.select('body').node().appendChild(xml.documentElement);
+            
+            svg = d3.select('svg');
 
-        if(!width) width = view[2]
-        if(!height) height = view[3]
-        
-        if(d3.select('#couch_blueprint')){
-            showCouchMark('#couch_blueprint');
-        }
-        
-        // avoid this in iOS-7
-        svg.attr('width', null)
-            .attr('height', null)
-        
+            width = svg.attr('width')
+            height = svg.attr('height')
+            var view = svg.attr('viewBox').split(' ')
 
-        FastClick.attach(document.body);
-        ready()
-    })
+            if(!width) width = view[2]
+            if(!height) height = view[3]
+            
+            // avoid this in iOS-7
+            svg.attr('width', null)
+                .attr('height', null)
+            
+            FastClick.attach(document.body);
+
+            if(callback) callback()
+        })
+
+    }
+    
 
 
 
     /*
     Convenient function to clone an element in the same parent
     */
-    function clone(selector) {
+    function _clone(selector) {
         var node = d3.select(selector).node();
         return d3.select(node.parentNode.insertBefore(node.cloneNode(true), node.nextSibling));
     }
@@ -53,7 +56,7 @@ window.Proto = {};
         <g id="{selector_mask}">...</g>
     </g>
     */
-    function clip(selector_component, selector_mask, selector_content){
+    function _clip(selector_component, selector_mask, selector_content){
 
         var component = d3.select(selector_component)
         var mask = d3.select(selector_mask).node()
@@ -76,7 +79,7 @@ window.Proto = {};
 
 
 
-    function showCouch(selector){
+    function _imposeLayer(selector){
         
         setTimeout(function(){
             console.log('show', selector);
@@ -104,10 +107,12 @@ window.Proto = {};
     }
 
 
-    Proto.clone = clone
-    Proto.clip = clip
-    Proto.showCouch = showCouch
-
+    Proto.clone = _clone
+    Proto.clip = _clip
+    Proto.imposeLayer = _imposeLayer
+    Proto.width = viewWidth
+    Proto.height = viewHeight
+    Proto.placeSVG = placeSVG
 
   
 })(window, window.Proto);
