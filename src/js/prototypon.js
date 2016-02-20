@@ -2,8 +2,8 @@ window.Proto = {};
 
 (function (window, Proto, undefined) {
   
-    var viewWidth = $(document).width()
-    var viewHeight = $(document).height()
+    var viewWidth = $(window).width()
+    var viewHeight = $(window).height()
 
     var width;
     var height;
@@ -40,7 +40,7 @@ window.Proto = {};
     /*
     Convenient function to clone an element in the same parent
     */
-    function _clone(selector) {
+    function clone(selector) {
         var node = d3.select(selector).node();
         return d3.select(node.parentNode.insertBefore(node.cloneNode(true), node.nextSibling));
     }
@@ -56,7 +56,7 @@ window.Proto = {};
         <g id="{selector_mask}">...</g>
     </g>
     */
-    function _clip(selector_component, selector_mask, selector_content){
+    function clip(selector_component, selector_mask, selector_content){
 
         var component = d3.select(selector_component)
         var mask = d3.select(selector_mask).node()
@@ -78,41 +78,57 @@ window.Proto = {};
 
 
 
+    function clipBody(){
 
-    function _imposeLayer(selector){
-        
-        setTimeout(function(){
-            console.log('show', selector);
-            var couch = svg.select(selector)
-                .attr('display', 'block')
+        var all = d3.selectAll('svg > *').remove()
 
-            couch.insert('rect', ":first-child")
-                .attr({width:width, height:height})
-                .attr('fill', 'white')
-                .attr('opacity', .75)
+        var comp = svg.insert('g', ':first-child')
+            .attr('id', 'body_clip_component')
 
-            couch.attr('opacity', 0)
-                .transition()
-                .duration(900)
-                .delay(500)
-                .attr('opacity', 1)
+        var content = comp.append('g')
+            .attr('id', 'body_clip_content')
 
-            d3.select('body')
-                .on('click', function(){
-                console.log('remove', selector);
-                    couch.remove()
-                    d3.select('body').on('click', null)
-            })
-        }, 100);
+        all.each(function(){
+            var el = d3.select(this).node()
+            content.node().appendChild(el)
+        })
+
+        comp.append('rect')
+            .attr({width:width, height:height})
+            .attr('id', 'body_clip_mask')
+
+        clip('#body_clip_component', '#body_clip_mask', '#body_clip_content')
     }
 
 
-    Proto.clone = _clone
-    Proto.clip = _clip
-    Proto.imposeLayer = _imposeLayer
+
+
+    function showCoach(selector){
+        var couch = svg.select(selector)
+            .attr('display', 'block')
+
+        couch.attr('opacity', 0)
+            .transition()
+            .duration(900)
+            .delay(500)
+            .attr('opacity', 1)
+
+        d3.select('body')
+            .on('click', function(){
+            console.log('remove', selector);
+                couch.remove()
+                d3.select('body').on('click', null)
+        })
+    }
+
+
+    Proto.clone = clone
+    Proto.clip = clip
+    Proto.showCoach = showCoach
     Proto.width = viewWidth
     Proto.height = viewHeight
     Proto.placeSVG = placeSVG
+    Proto.clipBody = clipBody
 
   
 })(window, window.Proto);
