@@ -7,6 +7,6 @@
     "fastclick": "^1.0.6",
     "rebound-js": "~0.0.10",
     "gsap": "~1.18.2",
-    "impetus": "git://github.com/abusedmedia/impetus/"
+    "impetus": "git://github.com/abusedmedia/impetus/#lock_axis"
   }
 }
