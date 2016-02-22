@@ -42,35 +42,49 @@ window.Proto = {};
     */
     function clone(selector) {
         var node = d3.select(selector).node();
-        return d3.select(node.parentNode.insertBefore(node.cloneNode(true), node.nextSibling));
+        var newnode = d3.select(node.parentNode.insertBefore(node.cloneNode(true), node.nextSibling));
+        newnode.attr('id', null)
+        return newnode;
     }
 
 
 
 
+    
+
+
     /*
     Convenient function to set a clip-path to an element.
     The markup should follows this structure:
-    <g id="{selector_container}">
+    <g id="{container_selector}">
         <g>...</g>
         <g id="{selector_mask}">...</g>
     </g>
+    The selector mask group need to contains shapes (circle, rect, etc) and path only
     */
-    function clip(selector_container, selector_mask){
+    function clip(container_selector, selector_mask){
 
-        var component = d3.select(selector_container)
-        var mask = d3.select(selector_mask).node()
+        var component = d3.select(container_selector)
+        var mask = d3.select(selector_mask)
         
-        component.append('defs')
-            .node()
-            .appendChild(mask)
+        var clipname = 'maskclip' + container_selector.replace('#', '_')
 
-        var clipname = 'maskclip' + selector_container.replace('#', '_')
-        
-        component.append('clipPath')
+        var defs = svg.select('defs')
+        if(defs.size() == 0) defs = svg.append('defs')
+
+        var clippath = defs.append('clipPath')
             .attr('id', clipname)
-            .append('use')
-            .attr('xlink:href', selector_mask)
+
+        var children = mask.selectAll('*')
+        if(children.size() > 0){
+            children.each(function(d,i) { 
+                clippath.node()
+                    .appendChild(this)
+            })
+        }else{
+            clippath.node()
+                .appendChild(mask.node())
+        }
         
         component.attr('clip-path', 'url(#'+clipname+')')
     }
@@ -102,7 +116,7 @@ window.Proto = {};
 
 
 
-    function showCoach(selector){
+    function coach(selector){
         var couch = svg.select(selector)
             .attr('display', 'block')
 
@@ -123,7 +137,7 @@ window.Proto = {};
 
     Proto.clone = clone
     Proto.clip = clip
-    Proto.showCoach = showCoach
+    Proto.coach = coach
     Proto.width = viewWidth
     Proto.height = viewHeight
     Proto.placeSVG = placeSVG
