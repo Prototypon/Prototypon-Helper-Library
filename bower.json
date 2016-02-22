@@ -6,6 +6,7 @@
     "d3": "^3.5.16",
     "fastclick": "^1.0.6",
     "rebound-js": "~0.0.10",
-    "gsap": "~1.18.2"
+    "gsap": "~1.18.2",
+    "impetus": "git://github.com/abusedmedia/impetus/"
   }
 }
