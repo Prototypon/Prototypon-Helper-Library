@@ -1,4 +1,4 @@
-# Prototypon-Helper-Library
+# Prototypon Helper Library
 
 
 
@@ -25,6 +25,18 @@ This method allow to quick show a layer and attach a global click event to hide 
 	Proto.showCoach( selector )
 
 
+
+
+### Proto.clip
+
+This method allows to quick make a clip mask passing 2 selectors that are:
+
+- the container layer that contains all the elements that need to be masked and the mask shape as well
+- the shape that will be used to clip the elements
+
+    Proto.clip('#mycomp', '#mymask')
+    
+    
 
 ### Proto.clipBody
 

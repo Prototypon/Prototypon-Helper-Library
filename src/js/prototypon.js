@@ -51,22 +51,21 @@ window.Proto = {};
     /*
     Convenient function to set a clip-path to an element.
     The markup should follows this structure:
-    <g id="{selector_component}">
-        <g id="{selector_content}">...</g>
+    <g id="{selector_container}">
+        <g>...</g>
         <g id="{selector_mask}">...</g>
     </g>
     */
-    function clip(selector_component, selector_mask, selector_content){
+    function clip(selector_container, selector_mask){
 
-        var component = d3.select(selector_component)
+        var component = d3.select(selector_container)
         var mask = d3.select(selector_mask).node()
-        var content = d3.select(selector_content)
         
         component.append('defs')
             .node()
             .appendChild(mask)
 
-        var clipname = 'maskclip' + selector_component.replace('#', '_')
+        var clipname = 'maskclip' + selector_container.replace('#', '_')
         
         component.append('clipPath')
             .attr('id', clipname)
