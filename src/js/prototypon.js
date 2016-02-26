@@ -68,6 +68,7 @@ window.Proto = {};
         <g id="{selector_mask}">...</g>
     </g>
     The selector mask group need to contains shapes (circle, rect, etc) and path only
+    Returns the selector name of the clippath symbol to allows direct manipulation
     */
     function clip(container_selector, selector_mask){
 
@@ -95,6 +96,8 @@ window.Proto = {};
         }
         
         component.attr('clip-path', 'url(#'+clipname+')')
+
+        return clippath;
     }
 
 
