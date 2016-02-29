@@ -15,9 +15,9 @@ window.Proto = {};
     function placeSVG(svg_path, callback){
 
         d3.xml(svg_path, "image/svg+xml", function(xml) {
-            d3.select('body').node().appendChild(xml.documentElement);
+            var sv = d3.select('body').node().appendChild(xml.documentElement);
             
-            svg = d3.select('svg');
+            svg = d3.select(sv);
 
             width  = +svg.attr('width').split('px')[0]
             height = +svg.attr('height').split('px')[0]
