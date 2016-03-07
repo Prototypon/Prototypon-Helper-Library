@@ -156,6 +156,14 @@ window.Proto = {};
 
     
     
+    function _Impetus(_options) {
+        
+        var driver = d3.select(_options.source).node()
+       
+        _options.source = driver
+        
+        new Impetus(_options)
+    }
     
     
     
@@ -247,6 +255,29 @@ window.Proto = {};
     }
 
 
+    function _alignText(sel, align){
+        var _align = (align == 'center') ? 'middle' : 'end'
+
+        var bbox = d3.select(sel).node().getBBox();
+
+        var tr = d3.transform( d3.select(sel).attr('transform') )
+        var _val = (align == 'center') ? bbox.width/2 : bbox.width
+        tr.translate[0] += _val
+
+        d3.select(sel)
+            .attr('transform', tr)
+            .attr('text-anchor', _align)
+    }
+
+    function textCenter(sel){
+        _alignText(sel, 'center')
+    }
+
+    function textRight(sel){
+        _alignText(sel, 'right')
+    }
+
+
 
 
     Proto.clone = clone
@@ -257,6 +288,9 @@ window.Proto = {};
     Proto.placeSVG = placeSVG
     Proto.clipBody = clipBody
     Proto.Rebound = _Rebound
+    Proto.Impetus = _Impetus
+    Proto.textCenter = textCenter
+    Proto.textRight = textRight
 
   
 })(window, window.Proto);
