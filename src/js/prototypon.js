@@ -12,15 +12,25 @@ window.Proto = {};
     var height;
     var svg;
 
-    function placeSVG(svg_path, callback){
+    function placeSVG(svg_path, svg_id, callback){
+
+        var id = _.isString(svg_id) ? svg_id : null
+        var clb = _.isFunction(svg_id) ? svg_id : callback
 
         d3.xml(svg_path, "image/svg+xml", function(xml) {
             var sv = d3.select('body').node().appendChild(xml.documentElement);
             
             svg = d3.select(sv);
 
-            width  = +svg.attr('width').split('px')[0]
-            height = +svg.attr('height').split('px')[0]
+            if(id){
+                svg.attr('id', id)
+            }
+
+            // some exported svg don't have with and height set properly
+            if(svg.attr('width')){
+                width  = +svg.attr('width').split('px')[0]
+                height = +svg.attr('height').split('px')[0]
+            }
             
             var view = svg.attr('viewBox').split(' ')
 
@@ -36,7 +46,7 @@ window.Proto = {};
             
             FastClick.attach(document.body);
 
-            if(callback) callback()
+            if(clb) clb()
         })
 
     }

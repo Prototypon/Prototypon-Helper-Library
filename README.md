@@ -16,6 +16,15 @@ Insert at run-time an external svg file in order to manipulate it through javasc
 
 	})
 
+You can also assign a id to the loaded svg
+
+	Proto.placeSVG('your_svg_file.svg', 'my_new_id', function(){
+
+		// the svg is ready to be manipulated
+		// place here the code for your micro-interactions
+
+	})
+
 
 ### Proto.coach
 
@@ -35,6 +44,14 @@ This method allows to make a clip mask passing 2 selectors that are:
 - the container layer that contains all the elements that need to be masked and the mask element as well
 - the shape or group of shapes that will be used as a mask element
     
-    Proto.clip(container_selector, mask_selector)
+```    
+Proto.clip(container_selector, mask_selector)
+```
+
+You can get the new clip id from the method:
+
+	var maskID = Proto.clip(container_selector, mask_selector)
+
+This way you can select it for further manipulations.
     
     
