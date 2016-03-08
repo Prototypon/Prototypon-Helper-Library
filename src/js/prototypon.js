@@ -1,7 +1,9 @@
 window.Proto = {};
 
 (function (window, Proto, undefined) {
-  
+    
+    var version = '0.0.0'
+
     var viewWidth = $(window).width()
     var viewHeight = $(window).height()
     
@@ -83,7 +85,7 @@ window.Proto = {};
     function clip(container_selector, selector_mask){
 
         var component = d3.select(container_selector)
-        var mask = d3.select(selector_mask)
+        var mask = d3.select(selector_mask).attr('display', 'block')
         
         var clipname = 'maskclip' + container_selector.replace('#', '_')
 
@@ -131,17 +133,17 @@ window.Proto = {};
             .attr({width:width, height:height})
             .attr('id', 'body_clip_mask')
 
-        clip('#body_clip_component', '#body_clip_mask', '#body_clip_content')
+        clip('#body_clip_component', '#body_clip_mask')
     }
 
 
 
 
     function coach(selector){
-        var couch = svg.select(selector)
+        var _coach = svg.select(selector)
             .attr('display', 'block')
 
-        couch.attr('opacity', 0)
+        _coach.attr('opacity', 0)
             .transition()
             .duration(900)
             .delay(500)
@@ -149,7 +151,7 @@ window.Proto = {};
 
         d3.select('body')
             .on('click', function(){
-                couch.remove()
+                _coach.remove()
                 d3.select('body').on('click', null)
         })
     }
@@ -167,7 +169,7 @@ window.Proto = {};
     
     
     
-    function _Rebound(_options) {
+    function Stepper(_options) {
         
         var options = {
             source:_options.source,
@@ -279,7 +281,7 @@ window.Proto = {};
 
 
 
-
+    Proto.version = version
     Proto.clone = clone
     Proto.clip = clip
     Proto.coach = coach
@@ -287,10 +289,11 @@ window.Proto = {};
     Proto.height = viewHeight
     Proto.placeSVG = placeSVG
     Proto.clipBody = clipBody
-    Proto.Rebound = _Rebound
+    Proto.Stepper = Stepper
     Proto.Impetus = _Impetus
     Proto.textCenter = textCenter
     Proto.textRight = textRight
+
 
   
 })(window, window.Proto);
