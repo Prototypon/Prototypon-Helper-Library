@@ -92,16 +92,23 @@ And here with some constraints:
 
 ### Make a scrolling steps list
 
-	Proto.Rebound({
+	Proto.Stepper({
                     source: '#content',
                     steps:4,
                     view_size: 400,
                     direction:'x',
+                    initStep: 0,
                     update: function(val, norm) {
                         content.attr('transform', 'translate(' + val + ', 0)')
                     }
                 })
+                
+You can also create an instance to get further methods:
 
+    var myStepper = new Proto.Stepper({...})
+    myStepper.getSpring();
+    
+to get the Rebound spring instance.
 
 
 ### Proto.coach

@@ -176,12 +176,15 @@ window.Proto = {};
             steps:_options.steps,
             view_size:_options.view_size,
             direction:_options.direction,
-            update:_options.update
+            update:_options.update,
+            initStep: _options.initStep || 0
         }
                 
         var mapval = rebound.MathUtil.mapValueInRange
         var springSystem = new rebound.SpringSystem()
         var spring = springSystem.createSpring(50, 10)
+        
+        
 
         var el = $(options.source)
         var num = options.steps
@@ -196,6 +199,14 @@ window.Proto = {};
         var prp = (options.direction == 'x') ? 'pageX' : 'pageY'
         var ratio = (options.direction == 'x') ? ratioW : ratioH
         var prevLast
+        
+        var cstep = options.initStep/options.steps;
+        spring.setCurrentValue(cstep)
+        spring.setEndValue(cstep);
+        currentPos = mapval(cstep, 0, 1, 0, (size * num * -1));
+        step = options.initStep
+        options.update(currentPos, cstep)
+
 
         el.on('touchmousedown', function (e) {
             var ev = e[prp] / ratio
@@ -253,6 +264,10 @@ window.Proto = {};
                 }
             }
         });
+
+        this.getSpring = function(){
+            return spring
+        }
         
     }
 
