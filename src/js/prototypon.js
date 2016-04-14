@@ -87,7 +87,7 @@ window.Proto = {};
         var component = d3.select(container_selector)
         var mask = d3.select(selector_mask).attr('display', 'block')
         
-        var clipname = 'maskclip' + container_selector.replace('#', '_')
+        var clipname = selector_mask.replace('#', '_') + '_' + container_selector.replace('#', '_')
 
         var defs = svg.select('defs')
         if(defs.size() == 0) defs = svg.append('defs')
@@ -96,8 +96,8 @@ window.Proto = {};
             .attr('id', clipname)
 
         var children = mask.selectAll('*')
-        if(children.size() > 0){
-            children = mask.selectAll('g > *')
+        if(children.size() > 0){ // it's a group
+            children = mask.selectAll('*')
             children.each(function(d,i) { 
                 clippath.node()
                     .appendChild(this)
@@ -109,7 +109,7 @@ window.Proto = {};
         
         component.attr('clip-path', 'url(#'+clipname+')')
 
-        return clippath;
+        return clipname;
     }
 
 
