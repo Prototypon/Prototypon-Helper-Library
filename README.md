@@ -112,12 +112,19 @@ to get the Rebound spring instance.
 
 ### Proto.coach
 
-This method allows quickly to show a layer and attach a global click event to hide it upon user click.
+This method allows quickly to show a layer and attach a global click event in order to hide itself upon user interaction.
 It could be useful to show some hints about what the user is supposed to do on the given micro-interaction.
 
 	// 'selector' should be the layer id (e.g. '#myHelperInfo')
 	Proto.coach( selector )
 
+You can also providing a callback to trigger a custom function
+
+	Proto.coach( selector, myCallBack )
+	
+	function myCallBack(){
+		// do something here
+	}
 
 
 
