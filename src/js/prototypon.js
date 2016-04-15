@@ -2,7 +2,7 @@ window.Proto = {};
 
 (function (window, Proto, undefined) {
     
-    var version = '0.0.0'
+    var version = '0.0.18'
 
     var viewWidth = $(window).width()
     var viewHeight = $(window).height()
@@ -113,7 +113,9 @@ window.Proto = {};
     }
 
 
-
+    /*
+    Not sure it's helpful
+    */
     function clipBody(){
 
         var all = d3.selectAll('svg > *').remove()
@@ -138,7 +140,12 @@ window.Proto = {};
 
 
 
-
+     /*
+    Convenient function to set the following behaviour to an element:
+    - fadein on call
+    - click handler to fade itself out
+    - removing from DOM
+    */
     function coach(selector){
         var _coach = svg.select(selector)
             .attr('display', 'block')
@@ -169,7 +176,7 @@ window.Proto = {};
     
     
     
-    function Stepper(_options) {
+    function _Rebound(_options) {
         
         var options = {
             source:_options.source,
@@ -295,20 +302,24 @@ window.Proto = {};
     }
 
 
-
+    // public properties
     Proto.version = version
     Proto.clone = clone
     Proto.clip = clip
     Proto.coach = coach
     Proto.width = viewWidth
     Proto.height = viewHeight
+
+    // public methods
     Proto.placeSVG = placeSVG
     Proto.clipBody = clipBody
-    Proto.Stepper = Stepper
-    Proto.Impetus = _Impetus
+    Proto.Stepper = _Rebound
+    Proto.Momentum = _Impetus
     Proto.textCenter = textCenter
     Proto.textRight = textRight
 
+    // legacy, to be removed at some point
+    Proto.Impetus = _Impetus
 
   
 })(window, window.Proto);
