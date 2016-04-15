@@ -80,7 +80,7 @@ window.Proto = {};
         <g id="{selector_mask}">...</g>
     </g>
     The selector mask group need to contains shapes (circle, rect, etc) and path only
-    Returns the selector name of the clippath symbol to allows direct manipulation
+    Returns the selection array of the primitive shapes
     */
     function clip(container_selector, selector_mask){
 
@@ -97,19 +97,20 @@ window.Proto = {};
 
         var children = mask.selectAll('*')
         if(children.size() > 0){ // it's a group
-            children = mask.selectAll('*')
+            //children = mask.selectAll('*')
             children.each(function(d,i) { 
                 clippath.node()
                     .appendChild(this)
             })
         }else{
+            children = mask
             clippath.node()
                 .appendChild(mask.node())
         }
         
         component.attr('clip-path', 'url(#'+clipname+')')
 
-        return clipname;
+        return children[0];
     }
 
 

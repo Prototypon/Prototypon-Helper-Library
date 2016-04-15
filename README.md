@@ -36,9 +36,12 @@ This method allows to make a clip mask passing 2 selectors that are:
 Proto.clip(container_selector, mask_selector)
 ```
 
-You can get the new clip id from the method:
+You can get the selection of the primitive shapes from the method:
 
-	var maskID = Proto.clip(container_selector, mask_selector)
+	var selections = Proto.clip(container_selector, mask_selector)
+	$(selections).each(function(){
+		console.log(this)
+	})
 
 This way you can select it for further manipulations.
 
