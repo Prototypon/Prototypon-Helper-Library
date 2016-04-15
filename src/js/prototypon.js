@@ -146,7 +146,7 @@ window.Proto = {};
     - click handler to fade itself out
     - removing from DOM
     */
-    function coach(selector){
+    function coach(selector, clb){
         var _coach = svg.select(selector)
             .attr('display', 'block')
 
@@ -160,7 +160,13 @@ window.Proto = {};
             .on('click', function(){
                 _coach.remove()
                 d3.select('body').on('click', null)
+
+                if(clb){
+                    clb()
+                }
         })
+
+
     }
 
     
