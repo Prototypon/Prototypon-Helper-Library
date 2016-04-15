@@ -2,7 +2,7 @@ window.Proto = {};
 
 (function (window, Proto, undefined) {
     
-    var version = '0.0.18'
+    var version = '0.0.20'
 
     var viewWidth = $(window).width()
     var viewHeight = $(window).height()
