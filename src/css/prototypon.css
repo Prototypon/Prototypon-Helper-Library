@@ -49,6 +49,10 @@ svg text{
     pointer-events: none;
 }
 
+.elementIsLink{
+    cursor: pointer;
+}
+
 @media(max-width: 600px){
     html, body.mobileready{
         height:inherit;

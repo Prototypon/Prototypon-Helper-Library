@@ -51,12 +51,20 @@ Where #component is the selector id of the layer that contais either the mask an
 
 
 
+### Make a click
+
+```    
+Proto.click(selector, callback)
+```
+
+
+
 ### Make a scroller with momentum
 
 Usually you need to set up a mask before use this component.
 You need to select the target that is the driver of the gesture. With the given value (x and y) you can do a different task:
 	
-	Proto.Impetus({
+	Proto.Momentum({
         source: '#content',
         update: function (x, y) {
         		// do whatever you want with them
@@ -67,11 +75,10 @@ Usually we want to move the content based on mouse/tap movement:
 
 	var content = d3.select('#content');
     
-	Proto.Impetus({
+	Proto.Momentum({
         source: '#content',
         update: function (x, y) {
-        		d3.select('#content')
-            		.attr('transform', 'translate(' + x + ', ' + y + ')')
+        		TweenMax.set('#content', {x:x, y:y})
         }
     });
     

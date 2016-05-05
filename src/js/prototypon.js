@@ -2,7 +2,7 @@ window.Proto = {};
 
 (function (window, Proto, undefined) {
     
-    var version = '0.0.20'
+    var version = '0.0.21'
 
     var viewWidth = $(window).width()
     var viewHeight = $(window).height()
@@ -308,6 +308,14 @@ window.Proto = {};
         _alignText(sel, 'right')
     }
 
+    function click = function(selector, callback){
+        $(selector).addClass('elementIsLink')
+        $(selector).on('click', function(){
+            callback()
+        })
+    }
+
+
 
     // public properties
     Proto.version = version
@@ -324,9 +332,11 @@ window.Proto = {};
     Proto.Momentum = _Impetus
     Proto.textCenter = textCenter
     Proto.textRight = textRight
+    Proto.click = click
 
     // legacy, to be removed at some point
     Proto.Impetus = _Impetus
+    Proto.Rebound = _Rebound
 
   
 })(window, window.Proto);
