@@ -2,7 +2,7 @@ window.Proto = {};
 
 (function (window, Proto, undefined) {
     
-    var version = '0.0.21'
+    var version = '0.0.22'
 
     var viewWidth = $(window).width()
     var viewHeight = $(window).height()
@@ -308,7 +308,7 @@ window.Proto = {};
         _alignText(sel, 'right')
     }
 
-    function click = function(selector, callback){
+    function click(selector, callback){
         $(selector).addClass('elementIsLink')
         $(selector).on('click', function(){
             callback()
