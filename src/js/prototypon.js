@@ -2,7 +2,7 @@ window.Proto = {};
 
 (function (window, Proto, undefined) {
     
-    var version = '0.0.22'
+    var version = '0.0.23'
 
     var viewWidth = $(window).width()
     var viewHeight = $(window).height()
@@ -300,12 +300,12 @@ window.Proto = {};
             .attr('text-anchor', _align)
     }
 
-    function textCenter(sel){
-        _alignText(sel, 'center')
+    function textCenter(selector){
+        _alignText(selector, 'center')
     }
 
-    function textRight(sel){
-        _alignText(sel, 'right')
+    function textRight(selector){
+        _alignText(selector, 'right')
     }
 
     function click(selector, callback){
@@ -314,14 +314,19 @@ window.Proto = {};
             callback()
         })
     }
-
+    
+    
+    function show(selector){
+        $(selector).css('display' ,'block')
+    }
+    
+    function hide(selector){
+        $(selector).css('display' ,'none')
+    }
 
 
     // public properties
     Proto.version = version
-    Proto.clone = clone
-    Proto.clip = clip
-    Proto.coach = coach
     Proto.width = viewWidth
     Proto.height = viewHeight
 
@@ -330,9 +335,14 @@ window.Proto = {};
     Proto.clipBody = clipBody
     Proto.Stepper = _Rebound
     Proto.Momentum = _Impetus
+    Proto.clone = clone
+    Proto.clip = clip
+    Proto.coach = coach
     Proto.textCenter = textCenter
     Proto.textRight = textRight
     Proto.click = click
+    Proto.show = show
+    Proto.hide = hide
 
     // legacy, to be removed at some point
     Proto.Impetus = _Impetus

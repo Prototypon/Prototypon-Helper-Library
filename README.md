@@ -2,7 +2,7 @@
 
 
 
-# Reference
+## Quick Reference
 
 ### Load and insert a svg file
 
@@ -51,10 +51,47 @@ Where #component is the selector id of the layer that contais either the mask an
 
 
 
-### Make a click
+### TextCenter
+
+Given a text element in SVG which align text always from left by default (even you set differently in Illustrator/Sketch), this function allow to convert its alignment behavior at run time in order to change the text content dynamically with the expected behavior.
+
+```    
+Proto.textCenter(selector)
+```
+    
+
+### TextRight
+
+Given a text element in SVG which align text always from left by default (even you set differently in Illustrator/Sketch), this function allow to convert its alignment behavior at run time in order to change the text content dynamically with the expected behavior.
+
+```    
+Proto.textRight(selector)
+```
+    
+
+
+### Click
 
 ```    
 Proto.click(selector, callback)
+```
+
+
+### Show
+
+Convenient method to show instantly any hidden selectors (comma separated with multiple selectors)
+
+```    
+Proto.show(selector)
+```
+
+
+### Hide
+
+Convenient method to hide instantly any visible selectors (comma separated with multiple selectors)
+
+```    
+Proto.hide(selector)
 ```
 
 
@@ -135,6 +172,8 @@ You can also providing a callback to trigger a custom function
 	function myCallBack(){
 		// do something here
 	}
+
+
 
 
 
